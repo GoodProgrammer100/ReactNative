@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "myCursive",
   },
 });
