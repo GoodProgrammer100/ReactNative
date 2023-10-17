@@ -17,23 +17,12 @@ const CategoryOverviewScreen = ({ route, navigation }) => {
     return meal.categoryIds.includes(catId);
   });
 
-  const pressHandler = (mealId) => {
-    navigation.navigate("MealDetails", {
-      mealId,
-    });
-  };
-
   return (
     <View style={styles.rootScreen}>
       <FlatList
         data={displayedMeals}
         keyExtractor={(item) => item.id}
-        renderItem={(itemData) => (
-          <MealItem
-            meal={itemData.item}
-            onPress={pressHandler.bind(this, itemData.item.id)}
-          />
-        )}
+        renderItem={(itemData) => <MealItem meal={itemData.item} />}
         showsVerticalScrollIndicator={false}
       />
     </View>
