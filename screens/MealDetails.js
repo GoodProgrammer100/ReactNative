@@ -10,17 +10,31 @@ import {
 import { MEALS } from "../constants/dummyData";
 import Ingredients from "../components/Ingredients";
 import StarIcon from "../components/starIcon";
+import { useContext } from "react";
+import { FavouriteContext } from "../store/context/favourites-context";
 
 const MealDetail = ({ navigation, route }) => {
+  const favouriteCtx = useContext(FavouriteContext);
+
   const mealId = route.params.mealId;
   const myMeal = MEALS.find((meal) => meal.id == mealId);
+
+  let isMealFav = favouriteCtx.ids.includes(mealId);
+
   const iconPressHandler = () => {
-    console.log(myMeal.title + " set to favourite!");
+    if (!isMealFav) favouriteCtx.addFavourite(mealId);
+    else favouriteCtx.removeFavourite(mealId);
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <StarIcon onPress={iconPressHandler} />,
+      headerRight: () => (
+        <StarIcon
+          onPress={iconPressHandler}
+          name={isMealFav ? "star" : "star-outline"}
+          id={mealId}
+        />
+      ),
     });
   }, []);
 
