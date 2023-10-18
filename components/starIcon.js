@@ -2,10 +2,10 @@ import { Pressable, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
 import { FavouriteContext } from "../store/context/favourites-context";
+import { useSelector } from "react-redux";
 
 const StarIcon = ({ onPress, name, id }) => {
-  const favouriteCtx = useContext(FavouriteContext);
-  const isFav = favouriteCtx.ids.includes(id);
+  const isFav = useSelector((state) => state.favouriteMeals.ids).includes(id);
   return (
     <Pressable
       onPress={onPress}
