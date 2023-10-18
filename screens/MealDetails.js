@@ -12,18 +12,20 @@ import Ingredients from "../components/Ingredients";
 import StarIcon from "../components/starIcon";
 import { useContext } from "react";
 import { FavouriteContext } from "../store/context/favourites-context";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavourite, removeFavourite } from "../store/redux/favouriteMeals";
 
 const MealDetail = ({ navigation, route }) => {
-  const favouriteCtx = useContext(FavouriteContext);
-
+  const dispatch = useDispatch();
+  const favouriteMeals = useSelector((state) => state.favourites);
   const mealId = route.params.mealId;
   const myMeal = MEALS.find((meal) => meal.id == mealId);
 
-  let isMealFav = favouriteCtx.ids.includes(mealId);
+  let isMealFav = favouriteMeals.ids.includes(mealId);
 
   const iconPressHandler = () => {
-    if (!isMealFav) favouriteCtx.addFavourite(mealId);
-    else favouriteCtx.removeFavourite(mealId);
+    if (!isMealFav) dispatch(addFavourite(mealId));
+    else dispatch(removeFavourite(mealId));
   };
 
   useLayoutEffect(() => {
@@ -32,7 +34,7 @@ const MealDetail = ({ navigation, route }) => {
         <StarIcon
           onPress={iconPressHandler}
           name={isMealFav ? "star" : "star-outline"}
-          id={mealId}
+          id={id}
         />
       ),
     });

@@ -11,11 +11,7 @@ const StarIcon = ({ onPress, name, id }) => {
       onPress={onPress}
       style={({ pressed }) => [pressed ? styles.iconPressed : null]}
     >
-      <Ionicons
-        name={isFav ? "star" : "star-outline"}
-        size={24}
-        color={"white"}
-      />
+      <Ionicons name={name} size={24} color={"white"} />
     </Pressable>
   );
 };
