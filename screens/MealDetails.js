@@ -17,15 +17,15 @@ import { addFavourite, removeFavourite } from "../store/redux/favouriteMeals";
 
 const MealDetail = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const favouriteMeals = useSelector((state) => state.favourites);
+  const favouriteMeals = useSelector((state) => state.favouriteMeals);
   const mealId = route.params.mealId;
-  const myMeal = MEALS.find((meal) => meal.id == mealId);
+  const myMeal = MEALS.find((meal) => meal.id === mealId);
 
   let isMealFav = favouriteMeals.ids.includes(mealId);
 
   const iconPressHandler = () => {
-    if (!isMealFav) dispatch(addFavourite(mealId));
-    else dispatch(removeFavourite(mealId));
+    if (!isMealFav) dispatch(addFavourite({ id: mealId }));
+    else dispatch(removeFavourite({ id: mealId }));
   };
 
   useLayoutEffect(() => {
@@ -34,7 +34,7 @@ const MealDetail = ({ navigation, route }) => {
         <StarIcon
           onPress={iconPressHandler}
           name={isMealFav ? "star" : "star-outline"}
-          id={id}
+          id={mealId}
         />
       ),
     });
